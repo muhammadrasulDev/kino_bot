@@ -7,7 +7,6 @@ from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKe
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.client.default import DefaultBotProperties
 from dotenv import load_dotenv
 
 from db import Database
@@ -17,7 +16,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_IDS = [int(id.strip()) for id in os.getenv("ADMIN_IDS", "").split(",") if id.strip()]
 
-bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+bot = Bot(token=BOT_TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(storage=storage)
 db = Database()
@@ -32,9 +31,6 @@ class AddMovie(StatesGroup):
 
 class AddChannel(StatesGroup):
     name = State()
-    link = State()
-
-class RemoveChannel(StatesGroup):
     link = State()
 
 class RemoveNumber(StatesGroup):
